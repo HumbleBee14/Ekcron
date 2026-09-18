@@ -131,7 +131,7 @@ export default function AuditLogPage() {
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Audit Log</h1>
+          <h1 className="page-heading">Audit Log</h1>
           <p className="text-sm text-zinc-500 mt-1">
             {data
               ? `${data.total.toLocaleString()} total events`
@@ -206,7 +206,7 @@ export default function AuditLogPage() {
           isRetrying={isFetching}
         />
       ) : (
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+      <div className="card overflow-hidden">
         {isLoading ? (
           <div className="p-12 text-center text-zinc-500">
             Loading audit logs...

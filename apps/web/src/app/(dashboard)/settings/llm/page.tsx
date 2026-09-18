@@ -191,7 +191,7 @@ export default function LlmSettingsPage() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2">LLM Provider</h1>
+      <h1 className="page-heading mb-2">LLM Provider</h1>
       <p className="text-zinc-600 dark:text-zinc-400 mb-8">
         Configure which LLM provider is used for synthetic data generation,
         evaluation judging, and training reward scoring. If not configured, the
@@ -206,13 +206,13 @@ export default function LlmSettingsPage() {
           isRetrying={isFetching}
         />
       ) : isLoading ? (
-        <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-8 text-center text-zinc-500">
+        <div className="card p-8 text-center text-zinc-500">
           Loading settings...
         </div>
       ) : (
         <>
           {/* Current Status */}
-          <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 mb-6">
+          <div className="card p-4 mb-6">
             <div className="flex items-center gap-3">
               <div
                 className={`w-2.5 h-2.5 rounded-full ${
@@ -248,9 +248,9 @@ export default function LlmSettingsPage() {
           </div>
 
           {/* Configuration Form */}
-          <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg">
+          <div className="card">
             <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <h2 className="section-heading">
                 Configuration
               </h2>
             </div>
@@ -507,7 +507,7 @@ export default function LlmSettingsPage() {
           </div>
 
           {/* How It Works */}
-          <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg mt-6 p-6">
+          <div className="card mt-6 p-6">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-3">
               How it works
             </h3>

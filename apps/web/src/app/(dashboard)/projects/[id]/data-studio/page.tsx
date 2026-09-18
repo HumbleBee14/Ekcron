@@ -90,7 +90,7 @@ function PreviewCard({
   onRate: (rating: SampleRating) => void;
 }) {
   return (
-    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+    <div className="card p-4">
       <div className="flex items-center justify-between mb-3">
         <span className="text-xs text-zinc-400 dark:text-zinc-600">
           Sample #{index + 1}
@@ -334,7 +334,7 @@ export default function DataStudioPage() {
       <div className="mb-8">
         <Breadcrumbs items={breadcrumbItems} />
         <div className="flex items-center gap-3">
-          <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">
+          <h1 className="page-heading">
             Data Studio
           </h1>
           {guide && <StatusPill status={guide.status} />}
@@ -346,8 +346,8 @@ export default function DataStudioPage() {
       </div>
 
       {notFound && !guide && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 max-w-xl">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+        <div className="card p-6 max-w-xl">
+          <h2 className="section-heading mb-4">
             Start a guided session
           </h2>
           <label className="block text-xs text-zinc-500 mb-1">
@@ -431,7 +431,7 @@ export default function DataStudioPage() {
 
           {/* Guidance */}
           <div>
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-2">
+            <h2 className="section-heading mb-2">
               Guidance
             </h2>
             <textarea
@@ -505,7 +505,7 @@ export default function DataStudioPage() {
           {/* Facets */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <h2 className="section-heading">
                 Facets
               </h2>
               <button
@@ -580,7 +580,7 @@ export default function DataStudioPage() {
           {/* Preview */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <h2 className="section-heading">
                 Preview Samples
               </h2>
               <button
@@ -636,8 +636,8 @@ export default function DataStudioPage() {
           </div>
 
           {/* Generate dataset */}
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-2">
+          <div className="card p-6">
+            <h2 className="section-heading mb-2">
               Generate Full Dataset
             </h2>
             <p className="text-sm text-zinc-500 mb-4">

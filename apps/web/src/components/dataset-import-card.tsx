@@ -121,7 +121,7 @@ export function DatasetImportCard({ projectId }: { projectId: string }) {
   };
 
   return (
-    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+    <div className="card p-4">
       <div className="mb-3">
         <h3 className="text-sm font-medium text-zinc-900 dark:text-white">
           Import a dataset
@@ -199,7 +199,7 @@ export function DatasetImportCard({ projectId }: { projectId: string }) {
             disabled={isUploading}
             placeholder={file.name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-3 py-2 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600 disabled:opacity-60"
+            className="input-base disabled:opacity-60"
           />
         </div>
       )}
@@ -223,7 +223,7 @@ export function DatasetImportCard({ projectId }: { projectId: string }) {
       )}
 
       {outcome && (
-        <div className="mt-4 rounded-lg border border-zinc-200 dark:border-zinc-800 p-3">
+        <div className="mt-4 card p-3">
           <p className="text-sm text-zinc-900 dark:text-white">
             {outcome.datasetName}
           </p>

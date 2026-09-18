@@ -171,7 +171,7 @@ export default function TrainingJobDetailPage() {
           ]}
         />
         <div className="flex items-center gap-3">
-          <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white truncate">
+          <h1 className="page-heading truncate">
             {job.base_model.split("/").pop()}
           </h1>
           <StatusBadge status={job.status} />
@@ -333,7 +333,7 @@ export default function TrainingJobDetailPage() {
       {/* Loss chart — live while training, persisted history afterwards */}
       <div className="mb-8">
         <div className="mb-4 flex items-baseline justify-between">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+          <h2 className="section-heading">
             Training Loss
           </h2>
           {chartPoints.length > 0 && (
@@ -342,7 +342,7 @@ export default function TrainingJobDetailPage() {
             </span>
           )}
         </div>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           {chartPoints.length > 0 ? (
             <LossChart points={chartPoints} />
           ) : (
@@ -360,8 +360,8 @@ export default function TrainingJobDetailPage() {
       {/* Live metrics table */}
       {streamedMetrics.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Metrics Log</h2>
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+          <h2 className="section-heading mb-4">Metrics Log</h2>
+          <div className="card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -422,7 +422,7 @@ export default function TrainingJobDetailPage() {
 
       {/* Job details grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
             Configuration
           </p>
@@ -450,7 +450,7 @@ export default function TrainingJobDetailPage() {
           </div>
         </div>
 
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
             Timing & Cost
           </p>
@@ -530,10 +530,10 @@ export default function TrainingJobDetailPage() {
 
       {/* Hyperparameters */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+        <h2 className="section-heading mb-4">
           Hyperparameters
         </h2>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <pre className="text-sm text-zinc-600 dark:text-zinc-400 font-mono overflow-x-auto">
             {JSON.stringify(job.hyperparams, null, 2)}
           </pre>

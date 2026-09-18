@@ -7,7 +7,7 @@ export default function BillingSettingsPage() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2">
+      <h1 className="page-heading mb-2">
         Billing
       </h1>
       <p className="text-zinc-600 dark:text-zinc-400 mb-8">
@@ -17,8 +17,8 @@ export default function BillingSettingsPage() {
       {isLoading && <p className="text-zinc-500">Loading...</p>}
 
       {limits && (
-        <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+        <div className="card p-6">
+          <h2 className="section-heading mb-4">
             Plan Limits
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -49,7 +49,7 @@ function LimitCard({
   return (
     <div className="bg-zinc-50 dark:bg-zinc-900 rounded-md p-4">
       <p className="text-xs text-zinc-500 uppercase tracking-wide">{label}</p>
-      <p className="text-lg font-semibold text-zinc-900 dark:text-white mt-1">
+      <p className="section-heading mt-1">
         Up to {display}
       </p>
     </div>

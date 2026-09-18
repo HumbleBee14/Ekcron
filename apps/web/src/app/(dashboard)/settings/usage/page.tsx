@@ -119,7 +119,7 @@ export default function UsagePage() {
         <>
           {/* Summary cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="card p-4">
               <p className="text-xs text-zinc-500 uppercase tracking-wider">
                 Total Requests
               </p>
@@ -128,7 +128,7 @@ export default function UsagePage() {
               </p>
               <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-1">Last 30 days</p>
             </div>
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="card p-4">
               <p className="text-xs text-zinc-500 uppercase tracking-wider">
                 Prompt Tokens
               </p>
@@ -137,7 +137,7 @@ export default function UsagePage() {
               </p>
               <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-1">Last 30 days</p>
             </div>
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="card p-4">
               <p className="text-xs text-zinc-500 uppercase tracking-wider">
                 Completion Tokens
               </p>
@@ -146,7 +146,7 @@ export default function UsagePage() {
               </p>
               <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-1">Last 30 days</p>
             </div>
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="card p-4">
               <p className="text-xs text-zinc-500 uppercase tracking-wider">
                 Inference Cost
               </p>
@@ -159,26 +159,26 @@ export default function UsagePage() {
 
           {/* Overall billing totals */}
           {dashUsage && (
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 mb-8">
+            <div className="card p-6 mb-8">
               <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-4">
                 Billing Period Totals
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 <div>
                   <p className="text-xs text-zinc-500">Total Cost</p>
-                  <p className="text-lg font-semibold text-zinc-900 dark:text-white">
+                  <p className="section-heading">
                     ${dashUsage.total_cost_usd.toFixed(2)}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">Total Tokens In</p>
-                  <p className="text-lg font-semibold text-zinc-900 dark:text-white">
+                  <p className="section-heading">
                     {formatNumber(dashUsage.total_tokens_in)}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-zinc-500">Total Tokens Out</p>
-                  <p className="text-lg font-semibold text-zinc-900 dark:text-white">
+                  <p className="section-heading">
                     {formatNumber(dashUsage.total_tokens_out)}
                   </p>
                 </div>
@@ -189,7 +189,7 @@ export default function UsagePage() {
           {/* Cost attribution per operation. Optional-chained: an API from
               before this field existed returns summaries without it. */}
           {dashUsage && (dashUsage.cost_by_operation?.length ?? 0) > 0 && (
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 mb-8">
+            <div className="card p-6 mb-8">
               <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-4">
                 Where the Money Went
               </h2>
@@ -237,7 +237,7 @@ export default function UsagePage() {
           {/* Charts */}
           {inferenceUsage && inferenceUsage.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <div className="card p-6">
                 <BarChart
                   data={inferenceUsage.map((d) => ({
                     key: d.date,
@@ -258,7 +258,7 @@ export default function UsagePage() {
                 </div>
               </div>
 
-              <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+              <div className="card p-6">
                 <BarChart
                   data={inferenceUsage.map((d) => ({
                     key: d.date,
@@ -282,7 +282,7 @@ export default function UsagePage() {
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center mb-8">
+            <div className="card p-8 text-center mb-8">
               <p className="text-zinc-500">No inference usage data yet.</p>
               <p className="text-xs text-zinc-400 dark:text-zinc-600 mt-1">
                 Deploy a model and send inference requests to see usage data
@@ -297,7 +297,7 @@ export default function UsagePage() {
               <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3">
                 Daily Breakdown
               </h2>
-              <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden overflow-x-auto">
+              <div className="card overflow-hidden overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-zinc-200 dark:border-zinc-800">

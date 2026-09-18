@@ -423,7 +423,7 @@ export function TrainingTab({
               <p className="mb-1 font-medium text-zinc-600 dark:text-zinc-400">
                 Estimated Cost
               </p>
-              <p className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <p className="section-heading">
                 ${costEstimate.cost_estimate.toFixed(2)}
               </p>
               <div className="mt-1 space-y-0.5 text-xs text-zinc-500">
@@ -509,7 +509,7 @@ export function TrainingTab({
       )}
 
       {trainingJobs.length > 0 && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <div className="card">
           {trainingJobs.map((job) => (
             <div
               key={job.id}

@@ -170,7 +170,7 @@ function RegisterForm({
     form.name.trim() && form.base_url.trim() && form.base_model.trim();
 
   return (
-    <div className="mb-6 p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+    <div className="card mb-6 p-4">
       <h3 className="text-sm font-semibold mb-3 text-zinc-900 dark:text-white">
         Register New Instance
       </h3>
@@ -299,7 +299,7 @@ function InstanceCard({
         : "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400";
 
   return (
-    <div className="p-4 rounded-lg border border-zinc-200 dark:border-zinc-800">
+    <div className="p-4 card">
       <div className="flex items-start justify-between">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">

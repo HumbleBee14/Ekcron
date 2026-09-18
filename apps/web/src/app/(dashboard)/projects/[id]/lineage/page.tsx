@@ -213,14 +213,14 @@ export default function LineagePage() {
             { label: "Data Lineage" },
           ]}
         />
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Data Lineage</h1>
+        <h1 className="page-heading">Data Lineage</h1>
         <p className="text-sm text-zinc-500 mt-1">
           Trace data flow from documents through training to deployed models
         </p>
       </div>
 
       {!hasData ? (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center">
+        <div className="card p-8 text-center">
           <p className="text-zinc-500">
             No pipeline data yet. Upload documents to get started.
           </p>
@@ -228,7 +228,7 @@ export default function LineagePage() {
       ) : (
         <div className="space-y-2">
           {/* Stage 1: Documents */}
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+          <div className="card p-4">
             <StageHeader
               label="Documents"
               count={documents.length}
@@ -253,7 +253,7 @@ export default function LineagePage() {
           <Connector active={datasets.length > 0} />
 
           {/* Stage 2: Datasets */}
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+          <div className="card p-4">
             <StageHeader
               label="Datasets"
               count={datasets.length}
@@ -356,7 +356,7 @@ export default function LineagePage() {
           )}
 
           {/* Stage 4: Models */}
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+          <div className="card p-4">
             <StageHeader
               label="Models"
               count={models.length}

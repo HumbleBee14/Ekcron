@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/page-header";
 import {
   useTeamMembers,
   useTeamInvitations,
@@ -98,17 +100,15 @@ export default function TeamSettingsPage() {
   };
 
   return (
-    <div className="max-w-4xl">
-      <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2">Team Settings</h1>
-      <p className="text-zinc-600 dark:text-zinc-400 mb-8">
-        Manage your team members and invitations.
-      </p>
+    <div className="max-w-3xl">
+      <PageHeader
+        title="Team"
+        description="Manage your team members and invitations."
+      />
 
       {/* Invite Form */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-6 mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
-          Invite Team Member
-        </h2>
+      <div className="card mb-6 p-5">
+        <h2 className="section-heading mb-4">Invite a team member</h2>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1">
             <input
@@ -116,10 +116,8 @@ export default function TeamSettingsPage() {
               placeholder="Email address"
               value={email}
               onChange={(e) => handleEmailChange(e.target.value)}
-              className={`w-full bg-zinc-50 dark:bg-zinc-900 border rounded-md px-3 py-2 text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 ${
-                emailError
-                  ? "border-red-400 dark:border-red-500"
-                  : "border-zinc-300 dark:border-zinc-700"
+              className={`input-base ${
+                emailError ? "border-red-400 focus:border-red-400 focus:ring-red-500/20 dark:border-red-500" : ""
               }`}
               onKeyDown={(e) => e.key === "Enter" && handleInvite()}
               aria-invalid={emailError ? true : undefined}
@@ -128,19 +126,19 @@ export default function TeamSettingsPage() {
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-md px-3 py-2 text-zinc-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="input-base sm:w-36"
           >
             <option value="viewer">Viewer</option>
             <option value="member">Member</option>
             <option value="admin">Admin</option>
           </select>
-          <button
+          <Button
             onClick={handleInvite}
-            disabled={inviteMember.isPending || !email.trim()}
-            className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-md text-sm font-medium transition"
+            disabled={!email.trim()}
+            loading={inviteMember.isPending}
           >
-            {inviteMember.isPending ? "Sending..." : "Send Invite"}
-          </button>
+            Send invite
+          </Button>
         </div>
         {emailError ? (
           <p className="text-red-500 text-sm mt-2">{emailError}</p>
@@ -154,27 +152,25 @@ export default function TeamSettingsPage() {
       </div>
 
       {/* Team Members */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg mb-8">
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
-            Team Members{" "}
+      <div className="card mb-6">
+        <div className="card-header">
+          <h2 className="card-title">
+            Team members{" "}
             {members && (
-              <span className="text-zinc-500 font-normal">
-                ({members.length})
-              </span>
+              <span className="font-normal text-zinc-500">({members.length})</span>
             )}
           </h2>
         </div>
         {membersLoading ? (
-          <div className="p-8 text-center text-zinc-500">
+          <div className="px-5 py-10 text-center text-sm text-zinc-500">
             Loading members...
           </div>
         ) : members?.length === 0 ? (
-          <div className="p-8 text-center text-zinc-500">
+          <div className="px-5 py-10 text-center text-sm text-zinc-500">
             No team members yet.
           </div>
         ) : (
-          <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
+          <div className="divide-y divide-zinc-100 dark:divide-zinc-800/70">
             {members?.map((member) => {
               const isUpdatingRole =
                 updateRole.isPending &&
@@ -196,9 +192,7 @@ export default function TeamSettingsPage() {
                   </div>
                   <div className="flex items-center gap-3">
                     {member.role === "owner" ? (
-                      <span className="text-xs bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 px-2 py-1 rounded">
-                        Owner
-                      </span>
+                      <span className="badge badge-warning">Owner</span>
                     ) : (
                       <select
                         value={member.role}
@@ -209,7 +203,7 @@ export default function TeamSettingsPage() {
                             role: e.target.value,
                           })
                         }
-                        className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded px-2 py-1 text-xs text-zinc-700 dark:text-zinc-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="input-base w-auto px-2 py-1 text-xs disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="viewer">Viewer</option>
                         <option value="member">Member</option>
@@ -238,27 +232,27 @@ export default function TeamSettingsPage() {
       </div>
 
       {/* Pending Invitations */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg">
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
-            Pending Invitations{" "}
+      <div className="card">
+        <div className="card-header">
+          <h2 className="card-title">
+            Pending invitations{" "}
             {invitations && (
-              <span className="text-zinc-500 font-normal">
+              <span className="font-normal text-zinc-500">
                 ({invitations.filter((i) => i.status === "pending").length})
               </span>
             )}
           </h2>
         </div>
         {invitationsLoading ? (
-          <div className="p-8 text-center text-zinc-500">
+          <div className="px-5 py-10 text-center text-sm text-zinc-500">
             Loading invitations...
           </div>
         ) : !invitations?.some((i) => i.status === "pending") ? (
-          <div className="p-8 text-center text-zinc-500">
+          <div className="px-5 py-10 text-center text-sm text-zinc-500">
             No pending invitations.
           </div>
         ) : (
-          <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
+          <div className="divide-y divide-zinc-100 dark:divide-zinc-800/70">
             {invitations
               ?.filter((i) => i.status === "pending")
               .map((invitation) => {

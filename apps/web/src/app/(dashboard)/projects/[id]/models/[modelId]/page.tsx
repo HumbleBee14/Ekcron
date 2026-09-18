@@ -253,7 +253,7 @@ export default function ModelDetailPage() {
           ]}
         />
         <div className="flex items-center gap-3">
-          <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white truncate">{model.name}</h1>
+          <h1 className="page-heading truncate">{model.name}</h1>
           <DeploymentBadge status={model.deployment_status} />
         </div>
         <p className="text-zinc-500 mt-1">
@@ -270,7 +270,7 @@ export default function ModelDetailPage() {
 
       {/* Model info grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">
             Base Model
           </p>
@@ -278,13 +278,13 @@ export default function ModelDetailPage() {
             {model.base_model.split("/").pop()}
           </p>
         </div>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">
             Version
           </p>
           <p className="text-zinc-900 dark:text-white mt-1 text-sm">v{model.version}</p>
         </div>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+        <div className="card p-4">
           <p className="text-xs text-zinc-500 uppercase tracking-wider">
             Created
           </p>
@@ -297,10 +297,10 @@ export default function ModelDetailPage() {
       {/* Version History */}
       {versions && versions.length > 1 && (
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+          <h2 className="section-heading mb-4">
             Version History ({versions.length} versions)
           </h2>
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="card">
             {versions.map((v) => {
               const isCurrent = v.id === model.id;
               const isActive = v.deployment_status === "active";
@@ -377,7 +377,7 @@ export default function ModelDetailPage() {
         Object.keys(model.eval_scores).length > 0 && (
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+              <h2 className="section-heading">
                 Evaluation Scores
               </h2>
               <Link
@@ -389,7 +389,7 @@ export default function ModelDetailPage() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-3">
               {typeof model.eval_scores.overall === "number" && (
-                <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 text-center">
+                <div className="card p-4 text-center">
                   <p className="text-2xl font-bold text-zinc-900 dark:text-white">
                     {model.eval_scores.overall as number}/100
                   </p>
@@ -432,7 +432,7 @@ export default function ModelDetailPage() {
 
       {/* Deployment section */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Deployment</h2>
+        <h2 className="section-heading mb-4">Deployment</h2>
         <DeploymentPanel
           playgroundHref={`/projects/${params.id}/models/${params.modelId}/playground`}
           isActive={isActive}
@@ -449,7 +449,7 @@ export default function ModelDetailPage() {
       {/* API Keys section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">API Keys</h2>
+          <h2 className="section-heading">API Keys</h2>
           <button
             onClick={() => setShowKeyForm(!showKeyForm)}
             className="rounded-lg bg-zinc-100 dark:bg-zinc-800 px-4 py-2 text-sm text-zinc-900 dark:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition"
@@ -486,7 +486,7 @@ export default function ModelDetailPage() {
 
         {/* Create key form */}
         {showKeyForm && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-4">
+          <div className="card p-4 mb-4">
             <div className="flex gap-2">
               <input
                 value={keyName}
@@ -518,7 +518,7 @@ export default function ModelDetailPage() {
 
         {/* Keys list */}
         {keys.length > 0 ? (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="card">
             {keys.map((k) => (
               <div
                 key={k.id}
@@ -560,10 +560,10 @@ export default function ModelDetailPage() {
       {/* Inference endpoint */}
       {isActive && (
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+          <h2 className="section-heading mb-4">
             Inference Endpoint
           </h2>
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 space-y-5">
+          <div className="card p-6 space-y-5">
             <div>
               <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
                 Endpoint URL
@@ -608,7 +608,7 @@ export default function ModelDetailPage() {
       {/* Evaluations section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+          <h2 className="section-heading">
             Evaluations{" "}
             {evaluations.length > 0 &&
               `(${evalsData?.total ?? evaluations.length})`}
@@ -622,7 +622,7 @@ export default function ModelDetailPage() {
         </div>
 
         {evaluations.length > 0 ? (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="card">
             {evaluations.map((ev) => (
               <Link
                 key={ev.id}
@@ -655,7 +655,7 @@ export default function ModelDetailPage() {
       {/* Production feedback section */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+          <h2 className="section-heading">
             Production Feedback
           </h2>
           <Link
@@ -674,8 +674,8 @@ export default function ModelDetailPage() {
 
       {/* GGUF Export section */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">GGUF Export</h2>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 mb-4">
+        <h2 className="section-heading mb-4">GGUF Export</h2>
+        <div className="card p-6 mb-4">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
             <select
               value={exportQuantType}
@@ -712,7 +712,7 @@ export default function ModelDetailPage() {
         </div>
 
         {exports && exports.length > 0 && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="card">
             {exports.map((exp) => (
               <div
                 key={exp.id}
@@ -777,7 +777,7 @@ export default function ModelDetailPage() {
 
         {/* Run-locally (Ollama) recipe panel */}
         {ollamaForExport && ollamaRecipe.data && (
-          <div className="mt-4 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+          <div className="mt-4 card p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">
                 Run locally with Ollama
@@ -825,7 +825,7 @@ export default function ModelDetailPage() {
 
       {/* Quick links */}
       {isActive && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6">
+        <div className="card p-6">
           <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-4">
             Quick Links
           </h3>

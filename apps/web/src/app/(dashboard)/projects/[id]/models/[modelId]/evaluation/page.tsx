@@ -124,7 +124,7 @@ function DistributionMatch({ value }: { value?: number | null }) {
         >
           Distribution match
         </span>
-        <span className="text-lg font-semibold text-zinc-900 dark:text-white">
+        <span className="section-heading">
           {value.toFixed(3)}
         </span>
         <span className="rounded-full border border-violet-300 dark:border-violet-800 px-2 py-0.5 text-[11px] font-medium text-violet-700 dark:text-violet-300">
@@ -204,7 +204,7 @@ function TeacherParitySection({ evaluation }: { evaluation: Evaluation }) {
 
   if (note) {
     return (
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+      <div className="card p-5">
         <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
           Teacher Parity
         </p>
@@ -255,7 +255,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
       );
     }
     return (
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center">
+      <div className="card p-8 text-center">
         <p className="text-zinc-500">No scores available.</p>
       </div>
     );
@@ -264,7 +264,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
   return (
     <div className="space-y-8">
       {/* Overall score */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 text-center">
+      <div className="card p-6 text-center">
         <p className="text-xs text-zinc-500 uppercase tracking-wider mb-2">
           Overall Score
         </p>
@@ -279,7 +279,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {/* Domain Evaluation */}
         {scores.domain && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+          <div className="card p-5">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">
               Domain Evaluation
             </h3>
@@ -312,7 +312,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
           typeof scores.doc_knowledge.mean === "number" &&
           typeof scores.doc_knowledge.base_mean === "number" &&
           typeof scores.doc_knowledge.knowledge_lift === "number" && (
-            <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+            <div className="card p-5">
               <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-1">
                 Document Knowledge
               </h3>
@@ -354,7 +354,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
 
         {/* General Capability */}
         {scores.general && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+          <div className="card p-5">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">
               General Capability
             </h3>
@@ -406,7 +406,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
 
         {/* A/B Comparison — win_rate is null when the suite was skipped */}
         {scores.ab_comparison && typeof scores.ab_comparison.win_rate === "number" && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+          <div className="card p-5">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">
               A/B Comparison
             </h3>
@@ -448,7 +448,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
 
         {/* Safety */}
         {scores.safety && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+          <div className="card p-5">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">
               Safety Check
             </h3>
@@ -488,7 +488,7 @@ function EvaluationDetail({ evaluation }: { evaluation: Evaluation }) {
         Array.isArray(
           (evaluation.report as Record<string, unknown>).recommendations,
         ) && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5">
+          <div className="card p-5">
             <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-3">
               Recommendations
             </h3>
@@ -569,7 +569,7 @@ export default function EvaluationPage() {
         />
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Evaluation</h1>
+            <h1 className="page-heading">Evaluation</h1>
             {latestEval && <StatusBadge status={latestEval.status} />}
           </div>
           <div className="flex gap-2">
@@ -588,7 +588,7 @@ export default function EvaluationPage() {
 
       {/* Run evaluation form */}
       {showRunForm && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-8 space-y-3">
+        <div className="card p-4 mb-8 space-y-3">
           <p className="text-sm text-zinc-900 dark:text-white">Configure evaluation run</p>
           <div>
             <label className="block text-xs text-zinc-500 mb-1">
@@ -649,7 +649,7 @@ export default function EvaluationPage() {
       {latestEval ? (
         <EvaluationDetail evaluation={latestEval} />
       ) : (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center">
+        <div className="card p-8 text-center">
           <p className="text-zinc-500 mb-2">
             No evaluations have been run yet.
           </p>
@@ -666,7 +666,7 @@ export default function EvaluationPage() {
           <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3">
             Previous Evaluations
           </h3>
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="card">
             {evaluations.slice(1).map((ev) => (
               <div
                 key={ev.id}

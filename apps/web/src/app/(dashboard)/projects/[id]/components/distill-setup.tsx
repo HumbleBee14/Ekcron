@@ -67,7 +67,7 @@ export function DistillSetup({
   };
 
   return (
-    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 md:p-5 space-y-4">
+    <div className="card p-4 md:p-5 space-y-4">
       <div>
         <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">
           Distill a larger model
