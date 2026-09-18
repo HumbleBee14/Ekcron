@@ -81,12 +81,12 @@ function NavLinks({
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             title={collapsed ? link.label : undefined}
-            className={`group relative flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition ${
+            className={`group relative flex h-8 items-center gap-2.5 rounded-md px-2.5 text-[13px] font-medium transition ${
               collapsed ? "justify-center" : ""
             } ${
               active
-                ? "bg-zinc-100 text-zinc-900 dark:bg-white/[0.06] dark:text-white"
-                : "text-zinc-600 hover:bg-zinc-100/70 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-white"
+                ? "bg-white text-zinc-900 shadow-[0_1px_2px_rgba(0,0,0,0.06)] ring-1 ring-zinc-200/80 dark:bg-white/[0.08] dark:text-white dark:shadow-none dark:ring-white/10"
+                : "text-zinc-600 hover:bg-zinc-200/50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-white"
             }`}
           >
             <Icon
@@ -109,7 +109,7 @@ function NavLinks({
 function SidebarFooter({ collapsed = false }: { collapsed?: boolean }) {
   return (
     <div
-      className={`flex items-center gap-1 border-t border-zinc-200 pt-3 dark:border-zinc-800 ${
+      className={`flex items-center gap-1 border-t border-zinc-200/80 pt-2.5 dark:border-zinc-800 ${
         collapsed ? "flex-col" : "justify-between"
       }`}
     >
@@ -153,19 +153,19 @@ export default function DashboardLayout({
   return (
     // h-dvh + overflow-hidden confines scrolling to <main> so the sidebar stays
     // fixed instead of scrolling away with the page content.
-    <div className="flex h-dvh overflow-hidden bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex h-dvh overflow-hidden bg-white dark:bg-zinc-950">
       {/* Desktop sidebar */}
       <aside
-        className={`hidden shrink-0 flex-col border-r border-zinc-200 bg-white px-3 py-4 transition-[width] duration-200 md:flex dark:border-zinc-800 dark:bg-zinc-950 ${
-          collapsed ? "w-[3.75rem]" : "w-60"
+        className={`hidden shrink-0 flex-col border-r border-zinc-200/80 bg-zinc-50 px-2.5 py-3 transition-[width] duration-200 md:flex dark:border-zinc-800 dark:bg-zinc-900/30 ${
+          collapsed ? "w-[3.5rem]" : "w-56"
         }`}
       >
         <div
-          className={`mb-6 flex items-center ${
-            collapsed ? "flex-col gap-2" : "justify-between pl-1"
+          className={`mb-4 flex h-9 items-center ${
+            collapsed ? "justify-center" : "justify-between pl-1.5"
           }`}
         >
-          <Brand collapsed={collapsed} />
+          {!collapsed && <Brand />}
           <button
             type="button"
             onClick={toggleCollapsed}
@@ -235,7 +235,7 @@ export default function DashboardLayout({
 
       {/* Main content — the only scroll container */}
       <main className="flex-1 overflow-y-auto pt-14 md:pt-0">
-        <div className="w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
+        <div className="w-full px-4 py-5 md:px-7 md:py-6">
           {children}
         </div>
       </main>
