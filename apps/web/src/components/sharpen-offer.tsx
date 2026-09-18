@@ -12,7 +12,7 @@ function parityOf(scores: unknown): number | null {
 }
 
 const PANEL_CLASS =
-  "rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-4";
+  "card p-4";
 
 /**
  * The improve-pass offer on a model page, and the before/after parity of a model

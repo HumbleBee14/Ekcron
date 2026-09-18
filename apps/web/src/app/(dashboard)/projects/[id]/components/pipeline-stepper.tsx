@@ -142,14 +142,14 @@ function StepMarker({ state, index }: { state: StepState; index: number }) {
 
 export function PipelineStepper({ steps }: { steps: PipelineStep[] }) {
   return (
-    <ol className="flex items-start gap-2 overflow-x-auto py-1">
+    <ol className="flex items-start gap-3 overflow-x-auto">
       {steps.map((step, i) => (
         <li key={step.key} className="flex min-w-0 flex-1 items-start gap-2">
           <div className="flex min-w-0 flex-col items-start gap-1">
             <div className="flex items-center gap-2">
               <StepMarker state={step.state} index={i} />
               <span
-                className={`text-sm font-medium ${
+                className={`text-[13px] font-medium ${
                   step.state === "upcoming"
                     ? "text-zinc-400 dark:text-zinc-600"
                     : "text-zinc-900 dark:text-white"
@@ -159,10 +159,10 @@ export function PipelineStepper({ steps }: { steps: PipelineStep[] }) {
               </span>
             </div>
             <span
-              className={`pl-8 text-xs ${
+              className={`pl-8 text-xs tabular-nums ${
                 step.state === "active"
                   ? "text-violet-600 dark:text-violet-400"
-                  : "text-zinc-400 dark:text-zinc-600"
+                  : "text-zinc-500 dark:text-zinc-500"
               }`}
             >
               {step.detail}
@@ -173,7 +173,7 @@ export function PipelineStepper({ steps }: { steps: PipelineStep[] }) {
               aria-hidden
               className={`mt-3 h-px min-w-4 flex-1 ${
                 step.state === "done"
-                  ? "bg-emerald-300 dark:bg-emerald-800"
+                  ? "bg-emerald-400/70 dark:bg-emerald-700"
                   : "bg-zinc-200 dark:bg-zinc-800"
               }`}
             />

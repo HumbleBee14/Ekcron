@@ -30,7 +30,7 @@ const ROUTES = [
 export function RouteExplainer({ onImport }: { onImport: () => void }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+      <h2 className="section-heading">
         Three ways to build your model
       </h2>
       <p className="mt-1 text-sm text-zinc-500">

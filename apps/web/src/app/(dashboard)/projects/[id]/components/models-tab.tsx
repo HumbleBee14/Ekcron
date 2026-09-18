@@ -28,7 +28,7 @@ export function ModelsTab({
         </div>
       )}
       {models.length > 0 ? (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800">
+        <div className="card">
           {models.map((model) => (
             <Link
               key={model.id}

@@ -155,15 +155,15 @@ export default function NotificationsSettingsPage() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white mb-2">Notifications</h1>
+      <h1 className="page-heading mb-2">Notifications</h1>
       <p className="text-zinc-600 dark:text-zinc-400 mb-8">
         Choose which events trigger notifications and how they are delivered.
       </p>
 
       {/* Preference Toggles */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg mb-8">
+      <div className="card mb-8">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Preferences</h2>
+          <h2 className="section-heading">Preferences</h2>
         </div>
 
         {prefsLoading ? (
@@ -277,9 +277,9 @@ export default function NotificationsSettingsPage() {
       </div>
 
       {/* Delivery History */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg">
+      <div className="card">
         <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Delivery History</h2>
+          <h2 className="section-heading">Delivery History</h2>
         </div>
 
         {deliveriesLoading ? (

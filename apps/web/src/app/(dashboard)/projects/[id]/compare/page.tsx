@@ -219,7 +219,7 @@ export default function TrainingComparisonPage() {
             { label: "Compare Training Jobs" },
           ]}
         />
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">
+        <h1 className="page-heading">
           Training Job Comparison
         </h1>
         <p className="text-zinc-500 mt-1">
@@ -247,7 +247,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Final Loss Overlay */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3">
           Final Training Loss
         </h3>
@@ -265,7 +265,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Configuration */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3 uppercase tracking-wider">
           Configuration
         </h3>
@@ -291,7 +291,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Hyperparameters */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3 uppercase tracking-wider">
           Hyperparameters
         </h3>
@@ -362,7 +362,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Cost & Timing */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3 uppercase tracking-wider">
           Cost & Timing
         </h3>
@@ -405,7 +405,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Training Results */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3 uppercase tracking-wider">
           Training Results
         </h3>
@@ -445,7 +445,7 @@ export default function TrainingComparisonPage() {
       </div>
 
       {/* Evaluation Quality */}
-      <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-6">
+      <div className="card p-4 mb-6">
         <h3 className="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-3 uppercase tracking-wider">
           Evaluation Quality
         </h3>

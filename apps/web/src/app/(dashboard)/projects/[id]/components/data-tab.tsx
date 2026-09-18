@@ -226,7 +226,7 @@ export function DataTab({
         </div>
 
         {datasets.length > 0 && (
-          <div className="mb-4 rounded-lg border border-zinc-200 dark:border-zinc-800">
+          <div className="mb-4 card">
             {datasets.map((ds) => (
               <DatasetRow key={ds.id} dataset={ds} projectId={projectId} />
             ))}

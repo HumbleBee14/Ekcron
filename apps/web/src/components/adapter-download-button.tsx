@@ -202,7 +202,7 @@ export function AdapterDownloadButton({
           <button
             type="button"
             onClick={cancel}
-            className="rounded-lg border border-zinc-200 dark:border-zinc-800 px-2 py-1.5 text-xs text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition"
+            className="card px-2 py-1.5 text-xs text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition"
           >
             Cancel
           </button>

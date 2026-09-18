@@ -21,7 +21,7 @@ export default function ModelError({
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
       <div className="rounded-lg border border-red-200 dark:border-red-500/20 bg-red-50 dark:bg-red-500/5 p-8 max-w-md text-center">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-2">
+        <h2 className="section-heading mb-2">
           Failed to load model
         </h2>
         <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">

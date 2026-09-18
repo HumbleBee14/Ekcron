@@ -143,7 +143,7 @@ export function NotificationBell({
         <div
           className={`absolute ${align === "right" ? "right-0" : "left-0"} ${
             direction === "up" ? "bottom-full mb-2" : "top-full mt-2"
-          } w-80 max-w-[calc(100vw-1rem)] max-h-96 overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-lg z-50`}
+          } w-80 max-w-[calc(100vw-1rem)] max-h-96 overflow-y-auto rounded-xl border border-zinc-200 bg-white shadow-lg dark:border-zinc-800 dark:bg-zinc-900 z-50`}
         >
           <div className="flex items-center justify-between px-4 py-2 border-b border-zinc-200 dark:border-zinc-800">
             <span className="text-sm font-medium text-zinc-900 dark:text-white">

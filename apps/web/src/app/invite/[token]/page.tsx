@@ -32,7 +32,7 @@ export default function AcceptInvitePage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950 flex items-center justify-center">
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-8 max-w-md w-full text-center">
+      <div className="card p-8 max-w-md w-full text-center">
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white mb-4">Team Invitation</h1>
         {status === "success" ? (
           <div>

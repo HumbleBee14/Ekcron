@@ -163,7 +163,7 @@ function SampleRow({
             onChange={(e) => onCorrectionChange(sample.id, e.target.value)}
             rows={3}
             placeholder="Write the answer the model should have given..."
-            className="w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-transparent p-2 text-sm text-zinc-900 dark:text-white"
+            className="input-base"
           />
         </div>
       )}
@@ -267,7 +267,7 @@ export default function FeedbackPage() {
         />
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">
+            <h1 className="page-heading">
               Feedback
             </h1>
             <p className="text-sm text-zinc-500 mt-1">
@@ -335,7 +335,7 @@ export default function FeedbackPage() {
           <p className="text-zinc-500">Loading samples...</p>
         </div>
       ) : samples.length === 0 ? (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-12 text-center">
+        <div className="card p-12 text-center">
           <p className="text-zinc-500">
             {filter === "all"
               ? "No captured traffic yet. Enable capture and send requests to this model's API."
@@ -366,7 +366,7 @@ export default function FeedbackPage() {
           <button
             onClick={() => setOffset(Math.max(0, offset - PAGE_SIZE))}
             disabled={offset === 0}
-            className="rounded-lg border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 text-sm disabled:opacity-50"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-900"
           >
             Previous
           </button>
@@ -376,7 +376,7 @@ export default function FeedbackPage() {
           <button
             onClick={() => setOffset(offset + PAGE_SIZE)}
             disabled={offset + PAGE_SIZE >= total}
-            className="rounded-lg border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 text-sm disabled:opacity-50"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-900"
           >
             Next
           </button>

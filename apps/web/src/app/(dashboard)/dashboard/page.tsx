@@ -1,9 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import {
+  ArrowUpRight,
+  Boxes,
+  Cpu,
+  FolderKanban,
+  Rocket,
+} from "lucide-react";
 import { OnboardingBanner } from "@/components/onboarding-banner";
 import { ErrorState } from "@/components/error-state";
 import { CostChart } from "@/components/cost-chart";
+import { PageHeader } from "@/components/ui/page-header";
+import { StatTile } from "@/components/ui/stat-tile";
+import { Card, CardEmpty, CardHeader } from "@/components/ui/card";
 import {
   useDashboardStats,
   useUsageSummary,
@@ -40,15 +50,15 @@ export default function DashboardPage() {
     <div>
       <OnboardingBanner />
 
-      <div className="flex items-center justify-between mb-6 md:mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Dashboard</h1>
-        <Link
-          href="/projects/new"
-          className="rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 px-4 py-2 text-sm font-semibold transition"
-        >
-          New Project
-        </Link>
-      </div>
+      <PageHeader
+        title="Dashboard"
+        description="Everything running across your workspace."
+        actions={
+          <Link href="/projects/new" className="btn-primary">
+            New project
+          </Link>
+        }
+      />
 
       {isError ? (
         <ErrorState
@@ -62,213 +72,186 @@ export default function DashboardPage() {
           isRetrying={isFetching}
         />
       ) : (
-        <>
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-6 md:mb-8">
-        <StatCard
-          label="Projects"
-          value={stats?.total_projects}
-          loading={statsLoading}
-          href="/projects"
-        />
-        <StatCard
-          label="Models"
-          value={stats?.total_models}
-          loading={statsLoading}
-        />
-        <StatCard
-          label="Active Training"
-          value={stats?.active_training_jobs}
-          loading={statsLoading}
-        />
-        <StatCard
-          label="Deployed"
-          value={stats?.deployed_models}
-          loading={statsLoading}
-        />
-      </div>
-
-      {/* Usage Summary + Cost Chart */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
-        <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-6">
-          <div className="mb-3 flex items-baseline justify-between">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide">
-              Usage
-            </h2>
-            <Link
-              href="/settings/usage"
-              className="text-xs font-medium text-violet-600 underline-offset-2 hover:underline dark:text-violet-400"
-            >
-              View details →
-            </Link>
+        <div className="space-y-4 md:space-y-5">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-4">
+            <StatTile
+              label="Projects"
+              value={stats?.total_projects}
+              loading={statsLoading}
+              href="/projects"
+              icon={<FolderKanban className="h-4 w-4" strokeWidth={1.75} />}
+            />
+            <StatTile
+              label="Models"
+              value={stats?.total_models}
+              loading={statsLoading}
+              icon={<Boxes className="h-4 w-4" strokeWidth={1.75} />}
+            />
+            <StatTile
+              label="Active training"
+              value={stats?.active_training_jobs}
+              loading={statsLoading}
+              icon={<Cpu className="h-4 w-4" strokeWidth={1.75} />}
+            />
+            <StatTile
+              label="Deployed"
+              value={stats?.deployed_models}
+              loading={statsLoading}
+              icon={<Rocket className="h-4 w-4" strokeWidth={1.75} />}
+            />
           </div>
-          {usageLoading ? (
-            <p className="text-zinc-500">Loading...</p>
-          ) : (
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-zinc-600 dark:text-zinc-400 text-sm">Total Cost</span>
-                <span className="text-zinc-900 dark:text-white font-semibold">
-                  ${(usage?.total_cost_usd ?? 0).toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-600 dark:text-zinc-400 text-sm">Tokens In</span>
-                <span className="text-zinc-900 dark:text-white font-semibold">
-                  {(usage?.total_tokens_in ?? 0).toLocaleString()}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-600 dark:text-zinc-400 text-sm">Tokens Out</span>
-                <span className="text-zinc-900 dark:text-white font-semibold">
-                  {(usage?.total_tokens_out ?? 0).toLocaleString()}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-zinc-600 dark:text-zinc-400 text-sm">Total Events</span>
-                <span className="text-zinc-900 dark:text-white font-semibold">
-                  {(usage?.total_events ?? 0).toLocaleString()}
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
 
-        {/* Cost Chart */}
-        <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-6">
-          <div className="mb-3 flex items-baseline justify-between">
-            <h2 className="text-sm text-zinc-500 uppercase tracking-wide">
-              Daily Cost
-            </h2>
-            <Link
-              href="/settings/usage"
-              className="text-xs font-medium text-violet-600 underline-offset-2 hover:underline dark:text-violet-400"
-            >
-              View details →
-            </Link>
+          <div className="grid gap-3 md:gap-4 lg:grid-cols-3">
+            <Card>
+              <CardHeader
+                title="Usage"
+                action={<DetailsLink href="/settings/usage" />}
+              />
+              {usageLoading ? (
+                <UsageSkeleton />
+              ) : (
+                <dl className="divide-y divide-zinc-100 px-5 dark:divide-zinc-800/70">
+                  <UsageRow
+                    label="Total cost"
+                    value={`$${(usage?.total_cost_usd ?? 0).toFixed(2)}`}
+                  />
+                  <UsageRow
+                    label="Tokens in"
+                    value={(usage?.total_tokens_in ?? 0).toLocaleString()}
+                  />
+                  <UsageRow
+                    label="Tokens out"
+                    value={(usage?.total_tokens_out ?? 0).toLocaleString()}
+                  />
+                  <UsageRow
+                    label="Events"
+                    value={(usage?.total_events ?? 0).toLocaleString()}
+                  />
+                </dl>
+              )}
+            </Card>
+
+            <Card className="lg:col-span-2">
+              <CardHeader
+                title="Daily cost"
+                description="Last 14 days"
+                action={<DetailsLink href="/settings/usage" />}
+              />
+              <div className="px-5 py-4">
+                {usageLoading ? (
+                  <div className="h-36 animate-pulse rounded-md bg-zinc-100 dark:bg-zinc-800/60" />
+                ) : (
+                  <CostChart costByDay={usage?.cost_by_day ?? []} />
+                )}
+              </div>
+            </Card>
           </div>
-          {usageLoading ? (
-            <p className="text-zinc-500">Loading...</p>
-          ) : (
-            <CostChart costByDay={usage?.cost_by_day ?? []} />
-          )}
-        </div>
-      </div>
 
-      {/* Additional Stats Row */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 md:mb-8">
-        <StatCard
-          label="Documents"
-          value={stats?.total_documents}
-          loading={statsLoading}
-        />
-        <StatCard
-          label="Training Jobs"
-          value={stats?.total_training_jobs}
-          loading={statsLoading}
-        />
-        <StatCard
-          label="Evaluations"
-          value={stats?.total_evaluations}
-          loading={statsLoading}
-        />
-      </div>
-
-      {/* Recent Activity */}
-      <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg">
-        <div className="p-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Recent Activity</h2>
-        </div>
-        {activityLoading ? (
-          <div className="p-8 text-center text-zinc-500">Loading...</div>
-        ) : !activity?.length ? (
-          <div className="p-8 text-center text-zinc-500">
-            No activity yet. Create a project to get started.
-          </div>
-        ) : (
-          <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
-            {activity.slice(0, 10).map((entry) => (
-              <div
-                key={entry.id}
-                className="flex items-center justify-between px-4 py-3"
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <ActivityIcon action={entry.action} />
-                  <div className="min-w-0">
-                    <p className="text-sm text-zinc-900 dark:text-white truncate">
-                      <span className="font-medium">
-                        {formatAction(entry.action)}
-                      </span>{" "}
-                      <span className="text-zinc-600 dark:text-zinc-400">
-                        {entry.resource_type}
+          <div className="grid gap-3 md:gap-4 lg:grid-cols-3">
+            <Card className="lg:col-span-2">
+              <CardHeader
+                title="Recent activity"
+                description="Latest changes across projects"
+              />
+              {activityLoading ? (
+                <CardEmpty>Loading…</CardEmpty>
+              ) : !activity?.length ? (
+                <CardEmpty>No activity yet. Create a project to get started.</CardEmpty>
+              ) : (
+                <ul className="divide-y divide-zinc-100 dark:divide-zinc-800/70">
+                  {activity.slice(0, 10).map((entry) => (
+                    <li
+                      key={entry.id}
+                      className="flex items-center gap-3 px-5 py-3"
+                    >
+                      <ActivityDot action={entry.action} />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm text-zinc-900 dark:text-white">
+                          <span className="font-medium">{formatAction(entry.action)}</span>
+                          <span className="ml-1.5 text-zinc-500 dark:text-zinc-400">
+                            {entry.resource_type}
+                          </span>
+                        </p>
+                        {entry.resource_id && (
+                          <p className="truncate font-mono text-[11px] text-zinc-400 dark:text-zinc-600">
+                            {entry.resource_id}
+                          </p>
+                        )}
+                      </div>
+                      <span className="shrink-0 text-xs tabular-nums text-zinc-500">
+                        {formatTimeAgo(entry.created_at)}
                       </span>
-                    </p>
-                    {entry.resource_id && (
-                      <p className="text-xs text-zinc-400 dark:text-zinc-600 truncate">
-                        {entry.resource_id}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <span className="text-xs text-zinc-500 whitespace-nowrap ml-4">
-                  {formatTimeAgo(entry.created_at)}
-                </span>
-              </div>
-            ))}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Card>
+
+            <Card>
+              <CardHeader title="Pipeline" description="Totals across all projects" />
+              <dl className="divide-y divide-zinc-100 px-5 dark:divide-zinc-800/70">
+                <UsageRow
+                  label="Documents"
+                  value={statsLoading ? "—" : (stats?.total_documents ?? 0).toLocaleString()}
+                />
+                <UsageRow
+                  label="Training jobs"
+                  value={statsLoading ? "—" : (stats?.total_training_jobs ?? 0).toLocaleString()}
+                />
+                <UsageRow
+                  label="Evaluations"
+                  value={statsLoading ? "—" : (stats?.total_evaluations ?? 0).toLocaleString()}
+                />
+              </dl>
+            </Card>
           </div>
-        )}
-      </div>
-        </>
+        </div>
       )}
     </div>
   );
 }
 
-function StatCard({
-  label,
-  value,
-  loading,
-  href,
-}: {
-  label: string;
-  value?: number;
-  loading: boolean;
-  href?: string;
-}) {
-  const body = (
-    <>
-      <p className="text-sm text-zinc-500">{label}</p>
-      <p className="text-xl md:text-3xl font-bold text-zinc-900 dark:text-white mt-1">
-        {loading ? (
-          <span className="text-zinc-300 dark:text-zinc-700">--</span>
-        ) : (
-          (value ?? 0).toLocaleString()
-        )}
-      </p>
-    </>
+function DetailsLink({ href }: { href: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center gap-1 text-xs font-medium text-zinc-500 transition hover:text-zinc-900 dark:hover:text-white"
+    >
+      Details
+      <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
+    </Link>
   );
-  const cls = "rounded-lg border border-zinc-200 dark:border-zinc-800 p-3 md:p-6";
-  if (href) {
-    return (
-      <Link
-        href={href}
-        className={`${cls} block transition hover:border-zinc-300 dark:hover:border-zinc-700`}
-      >
-        {body}
-      </Link>
-    );
-  }
-  return <div className={cls}>{body}</div>;
 }
 
-function ActivityIcon({ action }: { action: string }) {
-  let color = "bg-zinc-200 dark:bg-zinc-700";
-  if (action.startsWith("create")) color = "bg-emerald-500/20";
-  else if (action.startsWith("delete")) color = "bg-red-500/20";
-  else if (action.startsWith("update")) color = "bg-blue-500/20";
-  else if (action.startsWith("deploy")) color = "bg-amber-500/20";
+function UsageRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between py-3">
+      <dt className="text-sm text-zinc-500 dark:text-zinc-400">{label}</dt>
+      <dd className="text-sm font-semibold tabular-nums text-zinc-900 dark:text-white">
+        {value}
+      </dd>
+    </div>
+  );
+}
 
-  return <div className={`w-2 h-2 rounded-full ${color} shrink-0`} />;
+function UsageSkeleton() {
+  return (
+    <div className="space-y-3 px-5 py-4">
+      {[0, 1, 2, 3].map((i) => (
+        <div key={i} className="h-4 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800/60" />
+      ))}
+    </div>
+  );
+}
+
+function ActivityDot({ action }: { action: string }) {
+  let color = "bg-zinc-300 dark:bg-zinc-600";
+  if (action.startsWith("create")) color = "bg-emerald-500";
+  else if (action.startsWith("delete")) color = "bg-red-500";
+  else if (action.startsWith("update")) color = "bg-blue-500";
+  else if (action.startsWith("deploy")) color = "bg-amber-500";
+
+  return <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${color}`} />;
 }
 
 function formatAction(action: string): string {

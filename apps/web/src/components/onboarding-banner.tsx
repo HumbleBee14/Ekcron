@@ -29,7 +29,7 @@ export function OnboardingBanner() {
   if (!loaded || isDismissed || isComplete) return null;
 
   return (
-    <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 mb-6 bg-zinc-50/50 dark:bg-zinc-900/50">
+    <div className="card mb-6 p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <h3 className="text-sm font-medium text-zinc-900 dark:text-white">Getting Started</h3>

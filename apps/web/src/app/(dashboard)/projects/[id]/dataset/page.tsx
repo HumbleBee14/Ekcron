@@ -223,7 +223,7 @@ export default function DatasetReviewPage() {
         Object.keys(dataset.stats).length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
             {Object.entries(dataset.stats).map(([key, value]) => (
-              <div key={key} className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+              <div key={key} className="card p-4">
                 <p className="text-xs text-zinc-500 uppercase tracking-wider">
                   {key.replace(/_/g, " ")}
                 </p>
@@ -239,7 +239,7 @@ export default function DatasetReviewPage() {
 
       {/* Preview pairs */}
       <div>
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">
+        <h2 className="section-heading mb-4">
           Preview {preview && `(${preview.length} samples)`}
         </h2>
         {preview && preview.length > 0 ? (

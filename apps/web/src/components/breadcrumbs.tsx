@@ -9,7 +9,7 @@ export interface BreadcrumbItem {
 
 export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <nav className="flex flex-wrap items-center gap-1.5 text-xs md:text-sm text-zinc-500 mb-3 md:mb-4">
+    <nav className="mb-2 flex flex-wrap items-center gap-1.5 text-xs text-zinc-500">
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (

@@ -422,7 +422,7 @@ export default function ABPlaygroundPage() {
         />
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">A/B Playground</h1>
+            <h1 className="page-heading">A/B Playground</h1>
             <p className="text-sm text-zinc-500 mt-0.5">
               Compare two models side-by-side with the same prompt
             </p>
@@ -460,7 +460,7 @@ export default function ABPlaygroundPage() {
       ) : (
         /* No deployed models message */
         deployedModels.length === 0 && (
-          <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center mb-4 shrink-0">
+          <div className="card p-8 text-center mb-4 shrink-0">
             <p className="text-zinc-500 mb-1">No deployed models found.</p>
             <p className="text-xs text-zinc-400 dark:text-zinc-600">
               Deploy at least one model from the project page to use the A/B
@@ -472,7 +472,7 @@ export default function ABPlaygroundPage() {
 
       {/* Settings panel */}
       {showSettings && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-4 shrink-0 space-y-3">
+        <div className="card p-4 mb-4 shrink-0 space-y-3">
           <div>
             <label className="block text-xs text-zinc-500 mb-1">
               System Prompt (shared)

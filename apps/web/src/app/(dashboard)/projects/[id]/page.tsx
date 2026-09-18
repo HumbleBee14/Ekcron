@@ -16,6 +16,7 @@ import { useTrainingJobs } from "@/hooks/use-training";
 import { useModels } from "@/hooks/use-models";
 import { useOnboarding } from "@/hooks/use-onboarding";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { PageHeader } from "@/components/ui/page-header";
 import { TabBar } from "@/components/ui/tabs";
 import {
   PipelineStepper,
@@ -148,21 +149,29 @@ export default function ProjectDetailPage() {
 
   return (
     <div>
-      {/* Header */}
-      <div className="mb-6">
-        <Breadcrumbs
-          items={[
-            { label: "Projects", href: "/projects" },
-            { label: project.name },
-          ]}
-        />
-        <h1 className="truncate text-xl font-bold text-zinc-900 dark:text-white md:text-2xl">
-          {project.name}
-        </h1>
-        {project.description && (
-          <p className="mt-1 text-zinc-500">{project.description}</p>
-        )}
-      </div>
+      <PageHeader
+        above={
+          <Breadcrumbs
+            items={[
+              { label: "Projects", href: "/projects" },
+              { label: project.name },
+            ]}
+          />
+        }
+        title={project.name}
+        description={project.description}
+        actions={
+          !isEmpty && (
+            <Link
+              href={`/projects/${params.id}/lineage`}
+              className="btn-secondary"
+              title="Trace every model back through its training data to the source documents"
+            >
+              Data lineage
+            </Link>
+          )
+        }
+      />
 
       {/* Where you are in the pipeline — informational, actions live in the tabs */}
       {isEmpty ? (
@@ -172,17 +181,8 @@ export default function ProjectDetailPage() {
         </div>
       ) : (
         status && (
-          <div className="mb-8 flex items-start gap-4">
-            <div className="min-w-0 flex-1">
-              <PipelineStepper steps={computePipelineSteps(status)} />
-            </div>
-            <Link
-              href={`/projects/${params.id}/lineage`}
-              className="shrink-0 pt-1 text-xs font-medium text-zinc-500 underline-offset-2 hover:text-zinc-900 hover:underline dark:hover:text-white"
-              title="Trace every model back through its training data to the source documents"
-            >
-              Data Lineage →
-            </Link>
+          <div className="card mb-6 px-5 py-4">
+            <PipelineStepper steps={computePipelineSteps(status)} />
           </div>
         )
       )}

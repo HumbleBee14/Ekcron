@@ -217,7 +217,7 @@ export default function PlaygroundPage() {
           />
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Playground</h1>
         </div>
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-8 text-center">
+        <div className="card p-8 text-center">
           <p className="text-zinc-500 mb-2">Model is not deployed.</p>
           <p className="text-xs text-zinc-400 dark:text-zinc-600 mb-4">
             Deploy the model first to use the playground.
@@ -261,7 +261,7 @@ export default function PlaygroundPage() {
 
       {/* Settings panel */}
       {showSettings && (
-        <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 mb-4 shrink-0 space-y-3">
+        <div className="card p-4 mb-4 shrink-0 space-y-3">
           <div>
             <label className="block text-xs text-zinc-500 mb-1">
               System Prompt
@@ -307,7 +307,7 @@ export default function PlaygroundPage() {
       )}
 
       {/* Messages area */}
-      <div className="flex-1 min-h-0 overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-800 mb-4">
+      <div className="flex-1 min-h-0 overflow-y-auto card mb-4">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">

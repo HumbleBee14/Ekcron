@@ -58,7 +58,7 @@ function NumberField({
   error?: string;
 }) {
   return (
-    <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-4">
+    <div className="card p-4">
       <label className="block text-sm text-zinc-900 dark:text-white font-medium mb-1">
         {label}
       </label>
@@ -185,7 +185,7 @@ export default function AdminConfigPage() {
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
         </div>
-        <h1 className="text-lg font-semibold text-zinc-900 dark:text-white">
+        <h1 className="section-heading">
           Admin access required
         </h1>
         <p className="mt-1 max-w-sm text-sm text-zinc-500">
@@ -219,7 +219,7 @@ export default function AdminConfigPage() {
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">
+          <h1 className="page-heading">
             Admin Configuration
           </h1>
           <p className="text-sm text-zinc-500 mt-1">
@@ -249,7 +249,7 @@ export default function AdminConfigPage() {
 
       {/* GPU Rates */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">
+        <h2 className="section-heading mb-1">
           GPU Hourly Rates
         </h2>
         <p className="text-xs text-zinc-500 mb-4">
@@ -259,7 +259,7 @@ export default function AdminConfigPage() {
           {Object.entries(form.gpu_rates).map(([gpuClass, rate]) => (
             <div
               key={gpuClass}
-              className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-3"
+              className="card p-3"
             >
               <label className="block text-xs text-zinc-500 mb-1">
                 {GPU_LABELS[gpuClass] || gpuClass.toUpperCase()}
@@ -299,7 +299,7 @@ export default function AdminConfigPage() {
 
       {/* Training */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">Training</h2>
+        <h2 className="section-heading mb-1">Training</h2>
         <p className="text-xs text-zinc-500 mb-4">
           Controls for training cost approval and document processing.
         </p>
@@ -328,7 +328,7 @@ export default function AdminConfigPage() {
 
       {/* Inference */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">Inference</h2>
+        <h2 className="section-heading mb-1">Inference</h2>
         <p className="text-xs text-zinc-500 mb-4">
           Pricing and limits for the inference API.
         </p>
@@ -379,7 +379,7 @@ export default function AdminConfigPage() {
 
       {/* Rate Limits */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">Rate Limits</h2>
+        <h2 className="section-heading mb-1">Rate Limits</h2>
         <p className="text-xs text-zinc-500 mb-4">
           Default rate limits applied to newly created API keys.
         </p>

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowUpRight, FolderPlus } from "lucide-react";
 import { useProjects } from "@/hooks/use-projects";
 import { ErrorState } from "@/components/error-state";
+import { PageHeader } from "@/components/ui/page-header";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default function ProjectsPage() {
   const { data, isLoading, isError, isFetching, refetch } = useProjects();
@@ -10,15 +13,15 @@ export default function ProjectsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 md:mb-8">
-        <h1 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-white">Projects</h1>
-        <Link
-          href="/projects/new"
-          className="rounded-lg bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200 px-4 py-2 text-sm font-semibold transition"
-        >
-          New Project
-        </Link>
-      </div>
+      <PageHeader
+        title="Projects"
+        description="Each project holds its documents, datasets, runs and models."
+        actions={
+          <Link href="/projects/new" className="btn-primary">
+            New project
+          </Link>
+        }
+      />
 
       {isError ? (
         <ErrorState
@@ -28,38 +31,52 @@ export default function ProjectsPage() {
           isRetrying={isFetching}
         />
       ) : isLoading ? (
-        <div className="py-12 text-center">
-          <p className="text-zinc-500">Loading projects...</p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 md:gap-4">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="card h-36 animate-pulse" />
+          ))}
         </div>
       ) : projects.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-700 p-12 text-center">
-          <p className="text-zinc-600 dark:text-zinc-400 mb-4">No projects yet</p>
-          <Link
-            href="/projects/new"
-            className="text-sm text-zinc-900 dark:text-white underline hover:no-underline"
-          >
-            Create your first project
-          </Link>
-        </div>
+        <EmptyState
+          icon={<FolderPlus className="h-5 w-5" strokeWidth={1.75} />}
+          title="No projects yet"
+          description="Create a project, upload a few documents, and run the pipeline end to end."
+          action={
+            <Link href="/projects/new" className="btn-primary">
+              Create your first project
+            </Link>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 md:gap-4">
           {projects.map((project) => (
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
-              className="rounded-lg border border-zinc-200 dark:border-zinc-800 p-5 hover:border-zinc-400 dark:hover:border-zinc-600 transition group"
+              className="card group flex flex-col p-5 transition hover:border-zinc-300 hover:shadow-sm dark:hover:border-zinc-700"
             >
-              <h3 className="font-medium text-zinc-900 dark:text-white group-hover:text-zinc-700 dark:group-hover:text-zinc-100 truncate mb-2">
-                {project.name}
-              </h3>
-              {project.description && (
-                <p className="text-sm text-zinc-500 line-clamp-2 mb-3">
-                  {project.description}
-                </p>
-              )}
-              <div className="flex items-center gap-3 text-xs text-zinc-400 dark:text-zinc-600">
-                {project.task_type && <span>{project.task_type}</span>}
-                <span>{new Date(project.created_at).toLocaleDateString()}</span>
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="truncate text-[15px] font-semibold tracking-tight text-zinc-900 dark:text-white">
+                  {project.name}
+                </h3>
+                <ArrowUpRight
+                  className="h-4 w-4 shrink-0 text-zinc-300 transition group-hover:text-zinc-600 dark:text-zinc-700 dark:group-hover:text-zinc-300"
+                  strokeWidth={1.75}
+                  aria-hidden="true"
+                />
+              </div>
+              <p className="mt-1.5 line-clamp-2 min-h-[2.5rem] text-sm text-zinc-500 dark:text-zinc-400">
+                {project.description || "No description"}
+              </p>
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-zinc-100 pt-3 dark:border-zinc-800/70">
+                {project.task_type ? (
+                  <span className="badge badge-neutral">{project.task_type}</span>
+                ) : (
+                  <span />
+                )}
+                <span className="text-xs tabular-nums text-zinc-400 dark:text-zinc-600">
+                  {new Date(project.created_at).toLocaleDateString()}
+                </span>
               </div>
             </Link>
           ))}
