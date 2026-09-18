@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import {
+  AlertTriangle,
   ArrowUpRight,
   Boxes,
   Cpu,
@@ -9,7 +10,6 @@ import {
   Rocket,
 } from "lucide-react";
 import { OnboardingBanner } from "@/components/onboarding-banner";
-import { ErrorState } from "@/components/error-state";
 import { CostChart } from "@/components/cost-chart";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatTile } from "@/components/ui/stat-tile";
@@ -43,9 +43,6 @@ export default function DashboardPage() {
     refetch: refetchActivity,
   } = useRecentActivity();
 
-  const isError = statsError || usageError || activityError;
-  const isFetching = statsFetching || usageFetching || activityFetching;
-
   return (
     <div>
       <OnboardingBanner />
@@ -60,19 +57,15 @@ export default function DashboardPage() {
         }
       />
 
-      {isError ? (
-        <ErrorState
-          title="Couldn't load your dashboard"
-          message="We couldn't reach the dashboard service. Your data is safe — please try again."
-          onRetry={() => {
-            refetchStats();
-            refetchUsage();
-            refetchActivity();
-          }}
-          isRetrying={isFetching}
-        />
-      ) : (
-        <div className="space-y-4 md:space-y-5">
+      <div className="space-y-4 md:space-y-5">
+          {statsError ? (
+            <CardError
+              message="Couldn't load workspace stats."
+              onRetry={refetchStats}
+              retrying={statsFetching}
+              standalone
+            />
+          ) : (
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 md:gap-4">
             <StatTile
               label="Projects"
@@ -100,6 +93,7 @@ export default function DashboardPage() {
               icon={<Rocket className="h-4 w-4" strokeWidth={1.75} />}
             />
           </div>
+          )}
 
           <div className="grid gap-3 md:gap-4 lg:grid-cols-3">
             <Card>
@@ -107,7 +101,13 @@ export default function DashboardPage() {
                 title="Usage"
                 action={<DetailsLink href="/settings/usage" />}
               />
-              {usageLoading ? (
+              {usageError ? (
+                <CardError
+                  message="Couldn't load usage."
+                  onRetry={refetchUsage}
+                  retrying={usageFetching}
+                />
+              ) : usageLoading ? (
                 <UsageSkeleton />
               ) : (
                 <dl className="divide-y divide-zinc-100 px-5 dark:divide-zinc-800/70">
@@ -137,13 +137,21 @@ export default function DashboardPage() {
                 description="Last 14 days"
                 action={<DetailsLink href="/settings/usage" />}
               />
-              <div className="px-5 py-4">
-                {usageLoading ? (
-                  <div className="h-36 animate-pulse rounded-md bg-zinc-100 dark:bg-zinc-800/60" />
-                ) : (
-                  <CostChart costByDay={usage?.cost_by_day ?? []} />
-                )}
-              </div>
+              {usageError ? (
+                <CardError
+                  message="Couldn't load daily cost."
+                  onRetry={refetchUsage}
+                  retrying={usageFetching}
+                />
+              ) : (
+                <div className="px-5 py-4">
+                  {usageLoading ? (
+                    <div className="h-36 animate-pulse rounded-md bg-zinc-100 dark:bg-zinc-800/60" />
+                  ) : (
+                    <CostChart costByDay={usage?.cost_by_day ?? []} />
+                  )}
+                </div>
+              )}
             </Card>
           </div>
 
@@ -153,7 +161,13 @@ export default function DashboardPage() {
                 title="Recent activity"
                 description="Latest changes across projects"
               />
-              {activityLoading ? (
+              {activityError ? (
+                <CardError
+                  message="Couldn't load recent activity."
+                  onRetry={refetchActivity}
+                  retrying={activityFetching}
+                />
+              ) : activityLoading ? (
                 <CardEmpty>Loading…</CardEmpty>
               ) : !activity?.length ? (
                 <CardEmpty>No activity yet. Create a project to get started.</CardEmpty>
@@ -189,6 +203,13 @@ export default function DashboardPage() {
 
             <Card>
               <CardHeader title="Pipeline" description="Totals across all projects" />
+              {statsError ? (
+                <CardError
+                  message="Couldn't load totals."
+                  onRetry={refetchStats}
+                  retrying={statsFetching}
+                />
+              ) : (
               <dl className="divide-y divide-zinc-100 px-5 dark:divide-zinc-800/70">
                 <UsageRow
                   label="Documents"
@@ -203,10 +224,47 @@ export default function DashboardPage() {
                   value={statsLoading ? "—" : (stats?.total_evaluations ?? 0).toLocaleString()}
                 />
               </dl>
+              )}
             </Card>
           </div>
-        </div>
-      )}
+      </div>
+    </div>
+  );
+}
+
+function CardError({
+  message,
+  onRetry,
+  retrying,
+  standalone = false,
+}: {
+  message: string;
+  onRetry: () => void;
+  retrying: boolean;
+  standalone?: boolean;
+}) {
+  return (
+    <div
+      className={`flex flex-wrap items-center justify-between gap-3 px-5 py-4 ${
+        standalone ? "card border-red-200/80 dark:border-red-900/50" : ""
+      }`}
+    >
+      <p className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+        <AlertTriangle
+          className="h-4 w-4 shrink-0 text-red-500"
+          strokeWidth={1.75}
+          aria-hidden="true"
+        />
+        {message}
+      </p>
+      <button
+        type="button"
+        onClick={onRetry}
+        disabled={retrying}
+        className="text-xs font-medium text-zinc-700 underline-offset-2 hover:underline disabled:opacity-50 dark:text-zinc-300"
+      >
+        {retrying ? "Retrying…" : "Retry"}
+      </button>
     </div>
   );
 }

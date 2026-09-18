@@ -235,7 +235,7 @@ export default function DashboardLayout({
 
       {/* Main content — the only scroll container */}
       <main className="flex-1 overflow-y-auto pt-14 md:pt-0">
-        <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
+        <div className="w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
           {children}
         </div>
       </main>
