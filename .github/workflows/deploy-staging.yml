@@ -9,6 +9,7 @@ on:
       - 'Cargo.toml'
       - 'Cargo.lock'
       - 'infra/deploy/oracle/**'
+      - 'infra/temporal/**'
       - '.github/workflows/deploy-staging.yml'
   workflow_dispatch:
 
