@@ -25,9 +25,9 @@ export default function SettingsLayout({
   const visibleTabs = tabs.filter((tab) => !tab.adminOnly || isAdmin);
 
   return (
-    <div className="card overflow-hidden md:grid md:min-h-[32rem] md:grid-cols-[12.5rem_1fr]">
+    <div>
       <nav
-        className="flex gap-1 overflow-x-auto border-b border-zinc-200/80 bg-zinc-50/80 px-2 py-2 md:flex-col md:gap-0.5 md:border-b-0 md:border-r md:p-3 dark:border-zinc-800 dark:bg-zinc-900/40"
+        className="mb-6 inline-flex max-w-full gap-0.5 overflow-x-auto rounded-lg border border-zinc-200/80 bg-zinc-50 p-1 dark:border-zinc-800 dark:bg-zinc-900/40"
         aria-label="Settings sections"
       >
         {visibleTabs.map((tab) => {
@@ -39,8 +39,8 @@ export default function SettingsLayout({
               aria-current={active ? "page" : undefined}
               className={`shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-[13px] font-medium transition ${
                 active
-                  ? "bg-white text-zinc-900 shadow-[0_1px_2px_rgba(0,0,0,0.06)] ring-1 ring-zinc-200/80 dark:bg-white/[0.08] dark:text-white dark:ring-white/10"
-                  : "text-zinc-500 hover:bg-zinc-200/50 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-white"
+                  ? "bg-white text-zinc-900 shadow-[0_1px_2px_rgba(0,0,0,0.06)] ring-1 ring-zinc-200/80 dark:bg-white/[0.08] dark:text-white dark:shadow-none dark:ring-white/10"
+                  : "text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
               }`}
             >
               {tab.label}
@@ -48,7 +48,7 @@ export default function SettingsLayout({
           );
         })}
       </nav>
-      <div className="min-w-0 p-5 md:p-8">{children}</div>
+      <div className="min-w-0">{children}</div>
     </div>
   );
 }
